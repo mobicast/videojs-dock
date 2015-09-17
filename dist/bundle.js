@@ -17,22 +17,69 @@ function _inherits(subClass, superClass) { if (typeof superClass !== 'function' 
 var videojs = (typeof window !== "undefined" ? window['videojs'] : typeof global !== "undefined" ? global['videojs'] : null);
 var Component = videojs.getComponent('Component');
 
-var Dock = (function (_Component) {
-  _inherits(Dock, _Component);
+var Title = (function (_Component) {
+  _inherits(Title, _Component);
+
+  function Title(player, options) {
+    _classCallCheck(this, Title);
+
+    _get(Object.getPrototypeOf(Title.prototype), 'constructor', this).call(this, player, options);
+  }
+
+  _createClass(Title, [{
+    key: 'createEl',
+    value: function createEl() {
+      return _get(Object.getPrototypeOf(Title.prototype), 'createEl', this).call(this, 'div', {
+        className: 'vjs-dock-text',
+        innerHTML: '\n        <h1 class=\'vjs-dock-title\'>' + this.options_.title + '</h1>\n        <h2 class=\'vjs-dock-description\'>' + (this.options_.description || '') + '</h2>\n      '
+      });
+    }
+  }]);
+
+  return Title;
+})(Component);
+
+exports.Title = Title;
+;
+
+var Shelf = (function (_Component2) {
+  _inherits(Shelf, _Component2);
+
+  function Shelf() {
+    _classCallCheck(this, Shelf);
+
+    _get(Object.getPrototypeOf(Shelf.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(Shelf, [{
+    key: 'createEl',
+    value: function createEl() {
+      return _get(Object.getPrototypeOf(Shelf.prototype), 'createEl', this).call(this, 'div', {
+        className: 'vjs-dock-shelf'
+      });
+    }
+  }]);
+
+  return Shelf;
+})(Component);
+
+exports.Shelf = Shelf;
+;
+
+var Dock = (function (_Component3) {
+  _inherits(Dock, _Component3);
 
   function Dock(player, options) {
     _classCallCheck(this, Dock);
 
     _get(Object.getPrototypeOf(Dock.prototype), 'constructor', this).call(this, player, options);
-    console.log(this.options_);
   }
 
   _createClass(Dock, [{
     key: 'createEl',
     value: function createEl() {
       return _get(Object.getPrototypeOf(Dock.prototype), 'createEl', this).call(this, 'div', {
-        className: 'vjs-dock',
-        innerHTML: '\n        <h1 class=\'vjs-dock-title\'>' + this.options_.title + '</h1>\n      '
+        className: 'vjs-dock'
       });
     }
   }]);
@@ -43,13 +90,24 @@ var Dock = (function (_Component) {
 exports.Dock = Dock;
 ;
 
+Dock.prototype.options_ = {
+  children: ['title', 'shelf']
+};
+
+videojs.registerComponent('Title', Title);
+videojs.registerComponent('Shelf', Shelf);
 videojs.registerComponent('Dock', Dock);
 
 videojs.plugin('dock', function (options) {
-  this.addChild('dock', options);
+  var settings = {
+    title: {
+      title: options.title,
+      description: options.description
+    }
+  };
+  var dock = this.addChild('dock', settings);
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-//# sourceMappingURL=data:application/json;charset:utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9na2F0c2V2bWFuL3AvdmlkZW9qcy1kb2NrL2luZGV4LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFBLElBQUksT0FBTyxHQUFHLE9BQU8sQ0FBQyxVQUFVLENBQUMsQ0FBQztBQUNsQyxJQUFJLFNBQVMsR0FBRyxPQUFPLENBQUMsWUFBWSxDQUFDLFdBQVcsQ0FBQyxDQUFDOztJQUVyQyxJQUFJO1lBQUosSUFBSTs7QUFDSixXQURBLElBQUksQ0FDSCxNQUFNLEVBQUUsT0FBTyxFQUFFOzBCQURsQixJQUFJOztBQUViLCtCQUZTLElBQUksNkNBRVAsTUFBTSxFQUFFLE9BQU8sRUFBRTtBQUN2QixXQUFPLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQztHQUM1Qjs7ZUFKVSxJQUFJOztXQU1QLG9CQUFHO0FBQ1Qsd0NBUFMsSUFBSSwwQ0FPUyxLQUFLLEVBQUU7QUFDM0IsaUJBQVMsRUFBRSxVQUFVO0FBQ3JCLGlCQUFTLDhDQUNzQixJQUFJLENBQUMsUUFBUSxDQUFDLEtBQUssa0JBQ2pEO09BQ0YsRUFBRTtLQUNKOzs7U0FiVSxJQUFJO0dBQVMsU0FBUzs7O0FBY2xDLENBQUM7O0FBRUYsT0FBTyxDQUFDLGlCQUFpQixDQUFDLE1BQU0sRUFBRSxJQUFJLENBQUMsQ0FBQzs7QUFFeEMsT0FBTyxDQUFDLE1BQU0sQ0FBQyxNQUFNLEVBQUUsVUFBUyxPQUFPLEVBQUU7QUFDdkMsTUFBSSxDQUFDLFFBQVEsQ0FBQyxNQUFNLEVBQUUsT0FBTyxDQUFDLENBQUM7Q0FDaEMsQ0FBQyxDQUFDIiwiZmlsZSI6ImdlbmVyYXRlZC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzQ29udGVudCI6WyJsZXQgdmlkZW9qcyA9IHJlcXVpcmUoJ3ZpZGVvLmpzJyk7XG5sZXQgQ29tcG9uZW50ID0gdmlkZW9qcy5nZXRDb21wb25lbnQoJ0NvbXBvbmVudCcpO1xuXG5leHBvcnQgY2xhc3MgRG9jayBleHRlbmRzIENvbXBvbmVudCB7XG4gIGNvbnN0cnVjdG9yKHBsYXllciwgb3B0aW9ucykge1xuICAgIHN1cGVyKHBsYXllciwgb3B0aW9ucyk7XG4gICAgY29uc29sZS5sb2codGhpcy5vcHRpb25zXyk7XG4gIH1cblxuICBjcmVhdGVFbCgpIHtcbiAgICByZXR1cm4gc3VwZXIuY3JlYXRlRWwoJ2RpdicsIHtcbiAgICAgIGNsYXNzTmFtZTogJ3Zqcy1kb2NrJyxcbiAgICAgIGlubmVySFRNTDogYFxuICAgICAgICA8aDEgY2xhc3M9J3Zqcy1kb2NrLXRpdGxlJz4ke3RoaXMub3B0aW9uc18udGl0bGV9PC9oMT5cbiAgICAgIGBcbiAgICB9KTtcbiAgfVxufTtcblxudmlkZW9qcy5yZWdpc3RlckNvbXBvbmVudCgnRG9jaycsIERvY2spO1xuXG52aWRlb2pzLnBsdWdpbignZG9jaycsIGZ1bmN0aW9uKG9wdGlvbnMpIHtcbiAgdGhpcy5hZGRDaGlsZCgnZG9jaycsIG9wdGlvbnMpO1xufSk7XG4iXX0=
 },{}]},{},[1])(1)
 });
