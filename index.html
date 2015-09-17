@@ -86,12 +86,13 @@
 
     <style>
       .video-js {
-        width: 600px;
-        height: 250px;
+        //width: 622.22px;
+        width: 840px;
+        height: 350px;
       }
 
       .video-js .vjs-poster {
-        background-color: white;
+        //background-color: white;
         //background-image: inherit !important;
       }
     </style>
@@ -109,12 +110,14 @@
     var video = document.querySelector('video');
 
     var player = videojs(video, {
-      inactivityTimeout: 0
     });
 
     player.dock({
-      title: 'Bacon ipsum dolor amet ribeye tongue landjaeger swine ball tip chuck filet mignon kevin'
+      title: 'Bacon ipsum dolor amet ribeye',
+      description: 'Doner shank pork loin sirloin, meatloaf shankle chicken bresaola cow shoulder cupim.'
     });
+
+    player.getChild('dock').shelf.addChild('playToggle');
 
     </script>
   </body>
