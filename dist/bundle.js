@@ -66,37 +66,8 @@ var Shelf = (function (_Component2) {
 exports.Shelf = Shelf;
 ;
 
-var Dock = (function (_Component3) {
-  _inherits(Dock, _Component3);
-
-  function Dock(player, options) {
-    _classCallCheck(this, Dock);
-
-    _get(Object.getPrototypeOf(Dock.prototype), 'constructor', this).call(this, player, options);
-  }
-
-  _createClass(Dock, [{
-    key: 'createEl',
-    value: function createEl() {
-      return _get(Object.getPrototypeOf(Dock.prototype), 'createEl', this).call(this, 'div', {
-        className: 'vjs-dock'
-      });
-    }
-  }]);
-
-  return Dock;
-})(Component);
-
-exports.Dock = Dock;
-;
-
-Dock.prototype.options_ = {
-  children: ['title', 'shelf']
-};
-
 videojs.registerComponent('Title', Title);
 videojs.registerComponent('Shelf', Shelf);
-videojs.registerComponent('Dock', Dock);
 
 videojs.plugin('dock', function (options) {
   var settings = {
@@ -105,7 +76,9 @@ videojs.plugin('dock', function (options) {
       description: options.description
     }
   };
-  var dock = this.addChild('dock', settings);
+
+  var title = player.title = this.addChild('title', settings.title);
+  var shelf = player.shelf = this.addChild('shelf', settings);
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
