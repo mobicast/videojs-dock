@@ -1,9 +1,12 @@
 let videojs = require('video.js');
 let Component = videojs.getComponent('Component');
+let assign = require('object.assign/polyfill')();
 
 export class Title extends Component {
   constructor(player, options) {
     super(player, options);
+    this.title = this.el_.querySelector('.vjs-dock-title');
+    this.description = this.el_.querySelector('.vjs-dock-description');
   }
 
   createEl() {
@@ -14,6 +17,13 @@ export class Title extends Component {
         <h2 class='vjs-dock-description'>${this.options_.description || ''}</h2>
       `
     });
+  }
+
+  update(title, description) {
+    this.title.innerHTML = '';
+    this.description.innerHTML = '';
+    this.title.appendChild(document.createTextNode(title));
+    this.description.appendChild(document.createTextNode(description));
   }
 };
 
@@ -29,13 +39,29 @@ videojs.registerComponent('Title', Title);
 videojs.registerComponent('Shelf', Shelf);
 
 videojs.plugin('dock', function(options) {
-  let settings = {
+  let player = this;
+  let opts = options || {};
+  let settings = assign({
     title: {
-      title: options.title,
-      description: options.description
+      title: '',
+      description: ''
     }
-  };
+  }, {
+    title: {
+      title: opts.title || '',
+      description: opts.description || ''
+    }
+  });
 
-  let title = player.title = this.addChild('title', settings.title);
-  let shelf = player.shelf = this.addChild('shelf', settings);
+  let title = player.title;
+  let shelf = player.shelf;
+
+  if (!title) {
+    title = player.title = this.addChild('title', settings.title);
+  } else {
+    title.update(settings.title.title, settings.title.description);
+  }
+  if (!shelf) {
+    shelf = player.shelf = this.addChild('shelf', settings);
+  }
 });
