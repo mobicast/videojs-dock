@@ -45,7 +45,6 @@ $font-size: $browser-context;
     pointer-events: none;
     position: absolute;
     top: 0;
-    @include autoHide(10s)
   }
 
   .vjs-dock-text {
@@ -95,5 +94,12 @@ $font-size: $browser-context;
   .vjs-dock-description {
     font-weight: normal;
     line-height: 1.5; // 18px
+  }
+
+  &.vjs-has-started {
+    .vjs-dock-text,
+    .vjs-dock-shelf {
+      @include autoHide(10s)
+    }
   }
 }
