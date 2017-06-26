@@ -1,12 +1,12 @@
-$browser-context: 16;
+$browser-context: 10;
 $lines-to-show: 2;
-$line-height: 1.333;
+$line-height: 1.25;
 
 @function em($pixels, $context: $browser-context) {
   @return #{$pixels/$context}em;
 }
 
-$font-size: $browser-context;
+$font-size: 16px;
 
 @mixin transition($string: $transition--default) {
   -webkit-transition: $string;
@@ -40,7 +40,7 @@ $font-size: $browser-context;
 
   .vjs-dock-text,
   .vjs-dock-shelf {
-    font-size: em(18, 10);
+    font-size: em(10);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     pointer-events: none;
     position: absolute;
@@ -51,11 +51,11 @@ $font-size: $browser-context;
     left: 10px;
     top:10px;
     margin: 0;
-    max-width: 75%;
+    max-width: 66%;
 
     // Adopt some core styles from .vjs-modal-dialog from video.js
     background: rgba(0, 0, 0, 0.6);
-    padding: 10px $shelf-width 10px 10px;
+    padding: 8px $shelf-width 8px 10px;
   }
 
   &.vjs-no-flex .vjs-dock-text {
@@ -88,12 +88,13 @@ $font-size: $browser-context;
   .vjs-dock-title {
     font-weight: normal;
     letter-spacing: 1px;
-    line-height: $line-height; // 20px
+    line-height: $line-height;
+    font-size: 1.7em;
   }
 
   .vjs-dock-description {
     font-weight: normal;
-    line-height: 1.5; // 18px
+    font-size: 1.3em;
   }
 
   &.vjs-has-started {
