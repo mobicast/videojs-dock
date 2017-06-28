@@ -6,8 +6,6 @@ $line-height: 1.25;
   @return #{$pixels/$context}em;
 }
 
-$font-size: 16px;
-
 @mixin transition($string: $transition--default) {
   -webkit-transition: $string;
   -moz-transition: $string;
@@ -76,13 +74,6 @@ $font-size: 16px;
   .vjs-dock-title,
   .vjs-dock-description {
     margin: 0;
-    display: block; /* Fallback for non-webkit */
-    display: -webkit-box;
-    max-height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
-    -webkit-line-clamp: $lines-to-show;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .vjs-dock-title {
